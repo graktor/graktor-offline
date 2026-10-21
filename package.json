@@ -48,7 +48,7 @@
       "category": "public.app-category.business",
       "identity": null,
       "extraResources": [
-        { "from": "host/osx-${arch}", "to": "host" }
+        { "from": "host/osx-${arch}", "to": "host", "filter": ["**/*", "!*.pdb"] }
       ]
     },
     "linux": {
