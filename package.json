@@ -1,0 +1,62 @@
+{
+  "name": "graktor-offline",
+  "version": "1.0.0",
+  "description": "Graktor Offline — a standalone desktop app with its own local server, for a business that wants Graktor without a cloud account. The local server itself is closed source; CI downloads a prebuilt copy into host/<platform>/ before packaging (see .github/workflows).",
+  "main": "main.js",
+  "author": "Zendoria Ventures",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "dist:linux": "electron-builder --linux"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.zendoriaventures.graktoroffline",
+    "productName": "Graktor Offline",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "starting.html",
+      "crashed.html",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "signAndEditExecutable": false,
+      "extraResources": [
+        { "from": "host/win-x64", "to": "host" }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Graktor Offline"
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.business",
+      "identity": null,
+      "extraResources": [
+        { "from": "host/osx-${arch}", "to": "host" }
+      ]
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Office",
+      "extraResources": [
+        { "from": "host/linux-x64", "to": "host" }
+      ]
+    }
+  }
+}
